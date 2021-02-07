@@ -1,0 +1,119 @@
+<!DOCTYPE html lang="en">
+<head>
+    <title>Chat</title>
+</head>
+<body>
+<table>
+    <caption>Table</caption>
+    <th id="head"></th>
+    <tr>
+        <td colspan="2">
+            <input type="text" id="username" placeholder="Username"/>
+        </td>
+        <td colspan="2">
+            <input type="text" id="email" placeholder="Email"/>
+        </td>
+        <td colspan="2">
+            <input type="text" id="password" placeholder="Password"/>
+            <button type="button" onclick="connect();" >Connect</button>
+        </td>
+        <td>
+            <label for="langs">Choose a language to receive messages in:</label>
+            <select name="langs" id="langs">
+                <option value="es">Spanish</option>
+                <option value="en">English</option>
+                <option value="fr">French</option>
+                <option value="de">German</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <input type="file" id="fileInput" value="upload" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <textarea readonly="true" rows="10" cols="80" id="log"></textarea>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <input type="text" rows="1" cols="80" id="to" placeholder="To user"/>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <input type="text" rows="1" cols="80" id="toGroup" placeholder="To group"/>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <input type="text" rows="1" cols="80" id="groupPassword" placeholder="Enter group password"/>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <input type="text" rows="1" cols="180" id="attachment" placeholder="attachment"/>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <input type="text" size="51" id="msg" placeholder="Message"/>
+            <button type="button" onclick="send();" >Send</button>
+            <button type="button" onclick="sendToGroup();">Send To Group</button>
+        </td>
+    </tr>
+</table>
+<table>
+    <caption>Replies</caption>
+    <th id="replies"></th>
+    <tr>
+        <td colspan="1">
+            <input type="text" id="message_id" placeholder="Message id to reply to"/>
+        </td>
+        <td colspan="2">
+            <input type="text" id="reply_content" placeholder="What do you want to reply"/>
+        </td>
+        <td>
+            <button type="button" onclick="sendReplies()">Reply</button>
+        </td>
+        <td>
+            <button type="button" onclick="replyToGroup();">Reply to Group</button>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <textarea readonly="true" rows="10" cols="80" id="reply_log"></textarea>
+        </td>
+    </tr>
+</table>
+<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+<script>
+    var config={
+        apiKey: "AIzaSyBeMKAtl4ZQucjfs6CpGrALxLfzbR-x_wI",
+        authDomain: "ecommerceweb-8831e.firebaseapp.com",
+        databaseURL: "https://ecommerceweb-8831e.firebaseio.com",
+        projectId: "ecommerceweb-8831e",
+        storageBucket: "ecommerceweb-8831e.appspot.com",
+        messagingSenderId: "314743947882",
+        appId: "1:314743947882:web:46d3c02d6dce8c65"
+    };
+    firebase.initializeApp(config);
+    var uploader = document.getElementById('fileInput');
+    uploader.addEventListener( "change",async function(e){
+        console.log('inside at last');
+        var file = e.target.files[0];
+        console.log(file);
+        const storageRef = firebase.storage().ref('Uploaded_Images/'+file.name);
+        console.log('storage ref works');
+        await storageRef.put(file)
+        console.log('storage successful');
+        const url = await firebase.storage().ref().child('Uploaded_Images/'+file.name).getDownloadURL();
+        document.getElementById('attachment').value = url;
+    })
+</script>
+<script src="websocket.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+</body>
+</html>

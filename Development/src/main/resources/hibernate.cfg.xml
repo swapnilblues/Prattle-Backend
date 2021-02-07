@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.show_sql">false</property>
+        <property name="hibernate.format_sql">true</property>
+        <property name="use_sql_comments">false</property>
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
+<!--        <property name="hibernate.connection.url">-->
+
+<!--            jdbc:mysql://localhost:3306/fse?useSSL=false-->
+<!--        </property>-->
+
+
+<!--        <property name="hibernate.connection.url">-->
+<!--            jdbc:mysql://localhost:3306/prat?useSSL=false-->
+<!--        </property>-->
+
+
+<!--        <property name="hibernate.connection.url">-->
+<!--            jdbc:mysql://localhost:3306/prat?useSSL=false-->
+<!--        </property>-->
+
+
+
+        <property name="hibernate.connection.url">
+            jdbc:mysql://fse.csblfnnt5m4o.us-east-2.rds.amazonaws.com:3306/fse?useSSL=false
+        </property>
+
+
+<!--        <property name="hibernate.connection.url">-->
+<!--            jdbc:mysql://fse-prattle.cr5mxruotwoc.us-east-2.rds.amazonaws.com/fse_prattle?useSSL=false-->
+<!--        </property>-->
+
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.autocommit">true</property>
+        <property name="hibernate.connection.password">rootroot</property>
+        <property name="connection.pool_size">100</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        <mapping class="com.neu.prattle.model.User"/>
+        <mapping class="com.neu.prattle.model.Message"/>
+        <mapping class="com.neu.prattle.model.GroupMessage"/>
+    </session-factory>
+</hibernate-configuration>
